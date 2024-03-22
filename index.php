@@ -100,7 +100,6 @@
     </header>
     <div class="container">
         <?php
-header("refresh: 3;");
         if(isset($_POST['eventName']) && isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
             $eventName = $_POST['eventName'];
             // Directorio donde se guardarán las imágenes subidas
