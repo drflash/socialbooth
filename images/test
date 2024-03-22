@@ -1,0 +1,44 @@
+{
+    "image": "uploads\/bbvamosaico\/bbvamosaico.png",
+    "columns": 96,
+    "rows": 54,
+    "totalSpaces": 5184,
+    "eventName": "bbvamosaico",
+    "processed": false,
+    "spaces": [
+        {
+            "name": "sbimg_0_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_8",
+            "foto": false
+        },
