@@ -37,7 +37,7 @@
         transform: translate(-50%, -50%);
                 width: 800px; /* Ancho de la ventana emergente */
         height: 800px; /* Alto de la ventana emergente */
-        background-image: url('uploads/<?php echo $eventName; ?>/frame.png'); /* Ruta de la imagen de fondo */
+        background-image: url('/mosa/images/frame.png'); /* Ruta de la imagen de fondo */
         background-size: cover; /* Ajustar la imagen de fondo al tamaño del div */
         background-position: center; /* Centrar la imagen de fondo */
                 background-color: rgba(0, 0, 0, 0.5);
