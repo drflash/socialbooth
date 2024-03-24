@@ -99,63 +99,68 @@
         <img src="images/logosocial.png" alt="Logo">
     </header>
     <div class="container">
-        <?php
-        if(isset($_POST['eventName']) && isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-            $eventName = $_POST['eventName'];
-            // Directorio donde se guardarán las imágenes subidas
-            $uploadDir = 'uploads/' . $eventName . '/';
-            
-            // Comprobamos si el nombre del evento es válido
-            if(!preg_match('/^[a-zA-Z0-9_\-]+$/', $eventName)) {
-                echo "Nombre de evento no válido. Debe contener solo letras, números, guiones y guiones bajos.";
-            } else {
-                // Crear el directorio si no existe
-                if (!file_exists($uploadDir)) {
-                    if(!mkdir($uploadDir, 0777, true)) {
-                        echo "Error al crear el directorio de destino.";
-                    }
-                }
+    <?php
+if(isset($_POST['eventName']) && isset($_FILES['image']) && isset($_FILES['frame']) && $_FILES['image']['error'] == 0 && $_FILES['frame']['error'] == 0) {
+    $eventName = $_POST['eventName'];
 
-                
+    // Directorio donde se guardarán las imágenes subidas
+    $uploadDir = 'uploads/' . $eventName . '/';
 
-                // Ruta del archivo subido
-                $uploadFile = $uploadDir . basename($_FILES['image']['name']);
-
-                // Mover la imagen a su ubicación deseada
-                if(move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
-                    // Obtener las dimensiones de la imagen subida
-                    $dimensions = getimagesize($uploadFile);
-                    $width = $dimensions[0];
-                    $height = $dimensions[1];
-
-                    // Calcular número de columnas y filas de cubos
-                    $columns = floor($width / 20);
-                    $rows = floor($height / 20);
-
-                    // Redirigir al usuario a la página de visualización de la imagen con la retícula
-                    $imagePath = $uploadDir . basename($_FILES['image']['name']);
-                    $redirectURL = "mostrar_imagen.php?image=" . urlencode($imagePath) . "&columns=$columns&rows=$rows&eventName=" . urlencode($eventName); // Incluimos el nombre del evento en la URL
-                    header("Location: $redirectURL");
-                    exit();
-                } else {
-                    echo "Error al subir el archivo.";
-                }
+    // Comprobamos si el nombre del evento es válido
+    if(!preg_match('/^[a-zA-Z0-9_\-]+$/', $eventName)) {
+        echo "Nombre de evento no válido. Debe contener solo letras, números, guiones y guiones bajos.";
+    } else {
+        // Crear el directorio si no existe
+        if (!file_exists($uploadDir)) {
+            if(!mkdir($uploadDir, 0777, true)) {
+                echo "Error al crear el directorio de destino.";
             }
-        } else {
-            // Verificar si el formulario ha sido enviado y se han proporcionado todos los datos necesarios
-if ($_SERVER["REQUEST_METHOD"] == "POST" && (!isset($_POST['eventName']) || !isset($_FILES['image']) || $_FILES['image']['error'] != 0)) {
-    echo "No se han proporcionado todos los datos necesarios.";
-    exit; // Detener la ejecución del script
-}
         }
-        ?>
+
+        // Rutas de los archivos subidos
+        $uploadFileImage = $uploadDir . basename($_FILES['image']['name']);
+        $uploadFileFrame = $uploadDir . "frame.png"; // Nombre fijo para el marco
+
+        // Mover las imágenes a sus ubicaciones deseadas
+        if(move_uploaded_file($_FILES['image']['tmp_name'], $uploadFileImage) && move_uploaded_file($_FILES['frame']['tmp_name'], $uploadFileFrame)) {
+            // Obtener las dimensiones de la imagen subida
+            $dimensions = getimagesize($uploadFileImage);
+            $width = $dimensions[0];
+            $height = $dimensions[1];
+
+            // Calcular número de columnas y filas de cubos
+            $columns = floor($width / 20);
+            $rows = floor($height / 20);
+
+            // Redirigir al usuario a la página de visualización de la imagen con la retícula
+            $redirectURL = "mostrar_imagen.php?image=" . urlencode($uploadFileImage) . "&frame=" . urlencode($uploadFileFrame) . "&columns=$columns&rows=$rows&eventName=" . urlencode($eventName);
+            header("Location: $redirectURL");
+            exit();
+        } else {
+            echo "Error al subir los archivos.";
+        }
+    }
+} else {
+    // Verificar si el formulario ha sido enviado y se han proporcionado todos los datos necesarios
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && (!isset($_POST['eventName']) || !isset($_FILES['image']) || !isset($_FILES['frame']) || $_FILES['image']['error'] != 0 || $_FILES['frame']['error'] != 0)) {
+        echo "No se han proporcionado todos los datos necesarios.";
+        exit; // Detener la ejecución del script
+    }
+}
+?>
+
         <form enctype="multipart/form-data" action="" method="post">
-            <label for="eventName">Nombre del Evento:</label>
-            <input type="text" id="eventName" name="eventName" required>
-            <br><br>
-            <input type="file" name="image" accept="image/jpeg">
-            <input type="submit" value="Subir Imagen">
-        </form>
+    <label for="eventName">Nombre del Evento:</label>
+    <input type="text" id="eventName" name="eventName" required>
+    <br><br>
+    <label for="image">Imagen del Evento (JPEG):</label>
+    <input type="file" name="image" accept="image/jpeg,image/png" required>
+    <br><br>
+    <label for="frame">Marco del Evento (PNG):</label>
+    <input type="file" name="frame" accept="image/png" required>
+    <br><br>
+    <input type="submit" value="Subir Imágenes">
+</form>
     </div>
 </body>
 </html>
