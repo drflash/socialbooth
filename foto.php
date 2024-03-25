@@ -54,7 +54,7 @@
 <body>
     <h2>Tomar Foto</h2>
     <img src="images/logosocial.png" alt="Imagen" width="200">
-    <video id="video" autoplay></video>
+    <video id="video" autoplay muted playsinline></video>
     <button id="captureButton">Tomar Foto</button>
     <canvas style="display: none;" id="canvas" width="300" height="300"></canvas>
     <div id="counter"></div>
@@ -66,7 +66,8 @@
         ?>
 
         // Obtener acceso a la cámara del usuario
-        navigator.mediaDevices.getUserMedia({ video: true })
+        function startCamera() {
+            navigator.mediaDevices.getUserMedia({ video: true })
             .then(function(stream) {
                 var video = document.getElementById('video');
                 video.srcObject = stream;
@@ -74,6 +75,7 @@
             .catch(function(err) {
                 console.error('Error al acceder a la cámara:', err);
             });
+        }
 
         // Función para capturar la foto
         document.getElementById('captureButton').addEventListener('click', function() {
@@ -120,6 +122,18 @@
                 }
             }, 1000);
         });
+
+        // Comenzar la reproducción del video al hacer click
+        document.getElementById('video').addEventListener('click', function() {
+            var video = document.getElementById('video');
+            if (video.paused) {
+                startCamera();
+                video.play();
+            }
+        });
+
+        // Iniciar la cámara al cargar la página
+        startCamera();
     </script>
 </body>
 </html>
