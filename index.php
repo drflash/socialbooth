@@ -129,8 +129,8 @@ if(isset($_POST['eventName']) && isset($_FILES['image']) && isset($_FILES['frame
             $height = $dimensions[1];
 
             // Calcular número de columnas y filas de cubos
-            $columns = floor($width / 20);
-            $rows = floor($height / 20);
+            $columns = floor($width / 80);
+            $rows = floor($height / 80);
 
             // Redirigir al usuario a la página de visualización de la imagen con la retícula
             $redirectURL = "mostrar_imagen.php?image=" . urlencode($uploadFileImage) . "&frame=" . urlencode($uploadFileFrame) . "&columns=$columns&rows=$rows&eventName=" . urlencode($eventName);
