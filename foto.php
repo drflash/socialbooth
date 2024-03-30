@@ -170,7 +170,7 @@
 function verificarFotosTomadas() {
     // Realizar una solicitud GET para obtener el estado de los espacios en config.json
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/mosa/uploads/<?php echo $eventName; ?>/config.json');
+    xhr.open('GET', '/uploads/<?php echo $eventName; ?>/config.json');
     xhr.onload = function() {
         if (xhr.status === 200) {
             var configData = JSON.parse(xhr.responseText);
