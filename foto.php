@@ -1,97 +1,203 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Imprimir Imágenes</title>
-<style>
-/* Estilos generales */
-body {
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomar Foto</title>
+    <style>
+         /* Importa la tipografía Montserrat */
+         @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-</style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        #video {
+            width: 50%;
+            height: auto;
+            border-radius: 1%;
+            overflow: hidden; 
+        }
+        #captureButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 26px;
+            font-weight: bold;
+        }
+        #captureButton:hover {
+            background-color: #45a049;
+        }
+        #counter {
+            font-size: 124px;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
+    <img src="images/logosocial.png" alt="Imagen" width="200">
+    <br>
+    <select id="cameraSelect">
+        <option value="user">Cámara frontal</option>
+        <option value="environment">Cámara trasera</option>
+    </select>
+    <video id="video" autoplay muted playsinline></video>
+    <button id="captureButton">Tomar Foto</button>
+    <canvas style="display: none;" id="canvas" width="300" height="300"></canvas>
+    <div id="counter"></div>
+
+    <script>
+    // Obtener el nombre del evento desde PHP
     <?php
-    // Evento dinámico
     $eventName = isset($_GET['eventName']) ? $_GET['eventName'] : '';
+    ?>
 
-    // Ruta del archivo JSON
-    $jsonFile = __DIR__ . "/uploads/$eventName/output/print_status.json";
+    // Obtener acceso a la cámara del usuario
+    function startCamera() {
+        var video = document.getElementById('video');
+        var selectedCamera = document.getElementById('cameraSelect').value;
+        var constraints = {
+            video: {
+                facingMode: selectedCamera
+            }
+        };
+        navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(stream) {
+            video.srcObject = stream;
+        })
+        .catch(function(err) {
+            console.error('Error al acceder a la cámara:', err);
+        });
+    }
 
-    // Leer el archivo JSON y convertirlo a un array asociativo
-    $jsonData = json_decode(file_get_contents($jsonFile), true);
+    // Función para capturar la foto
+    document.getElementById('captureButton').addEventListener('click', function() {
+        var video = document.getElementById('video');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var aspectRatio = 1; // Aspect ratio 1:1
+        var videoWidth = video.videoWidth;
+        var videoHeight = video.videoHeight;
+        var size = Math.min(videoWidth, videoHeight);
+        canvas.width = size;
+        canvas.height = size;
+        context.drawImage(video, (videoWidth - size) / 2, (videoHeight - size) / 2, size, size, 0, 0, canvas.width, canvas.height);
+        var dataURL = canvas.toDataURL('image/jpeg'); // Convertir la imagen a base64
 
-    // Ruta base para las imágenes
-    $imageBasePath = "/uploads/$eventName/output/";
+        // Enviar la imagen a PHP para guardarla
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'save_photo.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                console.log(xhr.responseText);
 
-    // Verificar si se ha enviado una solicitud de impresión
-    if(isset($_POST['print_image'])) {
-        // Obtener el nombre de la imagen a imprimir
-        $imageName = $_POST['image_name'];
+                // Después de guardar la foto, llamar al script para procesar la impresión
+                var eventName = "<?php echo isset($_GET['eventName']) ? $_GET['eventName'] : ''; ?>";
+                if (eventName) {
+                    var xhrPrint = new XMLHttpRequest();
+                    xhrPrint.open('GET', 'procesar_impresion.php?eventName=' + encodeURIComponent(eventName), true);
+                    xhrPrint.onload = function() {
+                        if (xhrPrint.status === 200) {
+                            console.log(xhrPrint.responseText);
+                        } else {
+                            console.error('Error al procesar la impresión.');
+                        }
+                    };
+                    xhrPrint.send();
+                } else {
+                    console.error('Por favor, proporciona el nombre del evento.');
+                }
 
-        // Marcar la imagen como impresa
-        if(isset($jsonData[$imageName])) {
-            $jsonData[$imageName] = true;
+                // Verificar si todas las fotos están tomadas después de guardar la foto
+                verificarFotosTomadas();
 
-            // Actualizar el archivo JSON con los nuevos datos
-            if (file_put_contents($jsonFile, json_encode($jsonData)) !== false) {
-                echo "El estado de impresión de la imagen $imageName se ha actualizado correctamente en el archivo JSON.";
             } else {
-                echo "Error al actualizar el estado de impresión de la imagen $imageName en el archivo JSON.";
+                console.error('Error al guardar la foto.');
+            }
+        };
+        xhr.send('photo=' + encodeURIComponent(dataURL) + '&eventName=<?php echo $eventName; ?>');
+    });
+
+    // Función para activar el contador al presionar el botón de tomar foto
+    document.getElementById('captureButton').addEventListener('click', function() {
+        var counter = document.getElementById('counter');
+        var count = 3; // Iniciar el contador en 3 segundos
+        counter.innerHTML = count;
+        document.getElementById('captureButton').disabled = true; // Desactivar el botón durante el contador
+        var countdown = setInterval(function() {
+            count--;
+            if (count <= 0) {
+                clearInterval(countdown);
+                counter.innerHTML = '';
+                document.getElementById('captureButton').disabled = false; // Activar el botón después del contador
+            } else {
+                counter.innerHTML = count;
+            }
+        }, 1000);
+    });
+
+    // Comenzar la reproducción del video al hacer click
+    document.getElementById('video').addEventListener('click', function() {
+        var video = document.getElementById('video');
+        if (video.paused) {
+            startCamera();
+            video.play();
+        }
+    });
+
+    // Iniciar la cámara al cargar la página
+    startCamera();
+
+   // Función para verificar si todas las fotos están tomadas
+function verificarFotosTomadas() {
+    // Realizar una solicitud GET para obtener el estado de los espacios en config.json
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/mosa/uploads/<?php echo $eventName; ?>/config.json');
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var configData = JSON.parse(xhr.responseText);
+            var espacios = configData.spaces;
+            var todasTomadas = true;
+            
+            // Verificar si todas las fotos están tomadas
+            for (var i = 0; i < espacios.length; i++) {
+                if (!espacios[i].foto) {
+                    todasTomadas = false;
+                    break;
+                }
+            }
+            
+            // Realizar acciones basadas en el resultado
+            if (todasTomadas) {
+                console.log('¡Todas las fotografías han sido tomadas!');
+                // Redireccionar a gracias.php si todas las fotos están tomadas
+                window.location.href = 'gracias.html';
+            } else {
+                console.log('Aún quedan fotografías por tomar.');
             }
         } else {
-            echo "<p>La imagen $imageName no existe en el archivo JSON.</p>";
+            console.error('Error al cargar el archivo config.json');
         }
-    }
-
-    // Buscar la primera imagen disponible y mostrarla
-    $readyToPrintCount = 0;
-    foreach ($jsonData as $imageName => $printed) {
-        if (!$printed) {
-            // Utilizamos la ruta base para construir la ruta completa de la imagen
-            echo "<img src='$imageBasePath$imageName' alt='$imageName'><br>";
-            echo "<form method='post' action=''>";
-            echo "<input type='hidden' name='image_name' value='$imageName'>";
-            // Utilizamos JavaScript para abrir una ventana emergente con la imagen y solicitar la impresión directamente desde allí
-            echo "<button type='submit' name='print_image' onclick='printImage(\"$imageBasePath$imageName\")'>Imprimir</button>";
-            echo "</form>";
-            $readyToPrintCount++;
-            break; // Detenerse después de encontrar la primera imagen disponible
-        }
-    }
-
-    if ($readyToPrintCount == 0) {
-        echo "<p>No hay más imágenes disponibles para imprimir.</p>";
-    } else {
-        // Mostrar el contador de imágenes listas para imprimir
-        echo "<p>Imágenes listas para imprimir: $readyToPrintCount</p>";
-    }
-    ?>
-</div>
-
-<script>
-function printImage(imageUrl) {
-    var printWindow = window.open('', '_blank', 'width=800,height=600');
-    printWindow.document.write('<html><head><title>Imprimir Imagen</title></head><body style="margin: 0; padding: 0;"><img src="' + imageUrl + '" style="width: 100%; height: auto;">' +
-                               '<img src="/images/logoestadio.png" style="position: absolute; bottom: 0; left: 50; width: 300px; height: auto;"></body></html>');
-    printWindow.document.close();
-    printWindow.print();
-
-    // Cerrar la ventana después de 1 segundo (1000 milisegundos)
-    setTimeout(function(){ printWindow.close(); }, 1000);
+    };
+    xhr.send();
 }
 </script>
 
