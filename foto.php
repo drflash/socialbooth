@@ -54,6 +54,10 @@
 <body>
     <img src="images/logosocial.png" alt="Imagen" width="200">
     <br>
+    <select id="cameraSelect">
+        <option value="user">Cámara frontal</option>
+        <option value="environment">Cámara trasera</option>
+    </select>
     <video id="video" autoplay muted playsinline></video>
     <button id="captureButton">Tomar Foto</button>
     <canvas style="display: none;" id="canvas" width="300" height="300"></canvas>
@@ -67,9 +71,15 @@
 
     // Obtener acceso a la cámara del usuario
     function startCamera() {
-        navigator.mediaDevices.getUserMedia({ video: true })
+        var video = document.getElementById('video');
+        var selectedCamera = document.getElementById('cameraSelect').value;
+        var constraints = {
+            video: {
+                facingMode: selectedCamera
+            }
+        };
+        navigator.mediaDevices.getUserMedia(constraints)
         .then(function(stream) {
-            var video = document.getElementById('video');
             video.srcObject = stream;
         })
         .catch(function(err) {
