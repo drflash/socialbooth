@@ -94,7 +94,7 @@ if ($readyToPrintCount == 0) {
 function printImage(imageUrl) {
     var printWindow = window.open('', '_blank', 'width=800,height=600');
     printWindow.document.write('<html><head><title>Imprimir Imagen</title></head><body style="margin: 0; padding: 0;"><img src="' + imageUrl + '" style="width: 100%; height: auto;">' +
-                               '<img src="/images/logoestadio.png" style="position: absolute; bottom: 0; left: 200; width: 400px; height: auto;"></body></html>');
+                               '<img src="/images/logoestadio.png" style="position: absolute; bottom: 0; left: 100; width: 400px; height: auto;"></body></html>');
     printWindow.document.close();
     printWindow.print();
 
