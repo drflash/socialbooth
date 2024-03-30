@@ -54,10 +54,6 @@
 <body>
     <img src="images/logosocial.png" alt="Imagen" width="200">
     <br>
-    <select id="cameraSelect">
-        <option value="user">Cámara frontal</option>
-        <option value="environment">Cámara trasera</option>
-    </select>
     <video id="video" autoplay muted playsinline></video>
     <button id="captureButton">Tomar Foto</button>
     <canvas style="display: none;" id="canvas" width="300" height="300"></canvas>
@@ -69,13 +65,12 @@
     $eventName = isset($_GET['eventName']) ? $_GET['eventName'] : '';
     ?>
 
-    // Obtener acceso a la cámara del usuario
+    // Obtener acceso a la cámara trasera del usuario
     function startCamera() {
         var video = document.getElementById('video');
-        var selectedCamera = document.getElementById('cameraSelect').value;
         var constraints = {
             video: {
-                facingMode: selectedCamera
+                facingMode: 'environment' // Utiliza la cámara trasera
             }
         };
         navigator.mediaDevices.getUserMedia(constraints)
@@ -152,15 +147,6 @@
                 counter.innerHTML = count;
             }
         }, 1000);
-    });
-
-    // Comenzar la reproducción del video al hacer click
-    document.getElementById('video').addEventListener('click', function() {
-        var video = document.getElementById('video');
-        if (video.paused) {
-            startCamera();
-            video.play();
-        }
     });
 
     // Iniciar la cámara al cargar la página
