@@ -41,51 +41,13 @@
         <img id="logo" src="images/logosocial.png" alt="Logo">
         <div id="iframe-container">
   
-            <iframe id="iframe" src="http://localhost/mosa/visor.php?image=uploads%2Fs242%2Fsocial.png&columns=24&rows=13&eventName=s242" width="1244" height="700" frameborder="0"></iframe>
+            <iframe id="iframe" src="http://localhost/mosa/static.php?image=uploads%2Fmaestre%2Ffondomosaico.jpg&columns=48&rows=27&eventName=maestre" width="1024" height="576" frameborder="0"></iframe>
 
         </div>
-        <button id="captureButton">Capturar Imagen</button>
 
     </div>
     <div id="loadingMessage" style="display: none;">Cargando...</div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById('captureButton').addEventListener('click', function() {
-                var iframe = document.getElementById('iframe');
-        
-                if (!iframe) {
-                    console.error('No se encontró el iframe.');
-                    return;
-                }
-        
-                // Ocultar el iframe mientras se procesa la captura de pantalla
-                iframe.style.display = 'none';
-        
-                // Esperar a que el iframe se cargue completamente
-                iframe.onload = function() {
-                    console.log('El iframe se ha cargado completamente.');
-        
-                    // Captura el contenido del iframe utilizando html2canvas
-                    html2canvas(iframe.contentWindow.document.body).then(function(canvas) {
-                        console.log('La captura se ha realizado con éxito.');
-                        // Crea un elemento de imagen para mostrar la captura
-                        var img = new Image();
-                        img.src = canvas.toDataURL();
-        
-                        // Muestra la imagen capturada en la página
-                        document.body.appendChild(img);
-        
-                        // Mostrar el iframe nuevamente después de completar la captura
-                        iframe.style.display = 'block';
-                    }).catch(function(error) {
-                        console.error('Error al capturar la imagen:', error);
-                        // Mostrar el iframe nuevamente en caso de error
-                        iframe.style.display = 'block';
-                    });
-                };
-            });
-        });
-        </script>
+    
 </body>
 </html>

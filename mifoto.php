@@ -131,43 +131,53 @@
         <h2>Busca tu Imagen</h2>
 
         <form id="searchForm">
-            <label for="eventNameInput">Nombre del Evento:</label>
-            <input type="text" id="eventNameInput" name="eventName" required>
-            <br>
-            <label for="columnInput">Columna:</label>
-            <input type="text" id="columnInput" name="column" required>
-            <br>
-            <label for="rowInput">Fila:</label>
-            <input type="text" id="rowInput" name="row" required>
-            <br>
-            <button type="button" id="searchButton">Buscar</button>
-        </form>
+        <label for="eventNameInput">Nombre del Evento:</label>
+        <input type="text" id="eventNameInput" name="eventName" required>
+        <br>
+        <label for="columnInput">Columna:</label>
+        <input type="text" id="columnInput" name="column" required>
+        <br>
+        <label for="rowInput">Fila:</label>
+        <input type="text" id="rowInput" name="row" required>
+        <br>
+        <button type="button" id="downloadButton">Descargar</button>
+    </form>
 
         <div id="result">
             <!-- Aquí se mostrará la imagen buscada -->
         </div>
     </div>
     <script>
-    document.getElementById('searchButton').addEventListener('click', function(event) {
-        event.preventDefault();
-        
-        var eventName = document.getElementById('eventNameInput').value;
-        var column = document.getElementById('columnInput').value;
-        var row = document.getElementById('rowInput').value;
+document.getElementById('downloadButton').addEventListener('click', function(event) {
+    event.preventDefault();
 
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    document.getElementById('result').innerHTML = xhr.responseText;
-                } else {
-                    console.error('Error:', xhr.statusText);
-                }
+    var eventName = document.getElementById('eventNameInput').value;
+    var column = document.getElementById('columnInput').value;
+    var row = document.getElementById('rowInput').value;
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                console.log('Imagen recibida correctamente.');
+
+                // Descargar la imagen
+                var downloadLink = document.createElement('a');
+                downloadLink.href = 'data:image/jpeg;base64,' + xhr.responseText;
+                downloadLink.download = 'imagen_descargada.jpg'; // Nombre genérico
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            } else {
+                console.error('Error al recibir la imagen:', xhr.statusText);
             }
-        };
-        xhr.open('GET', 'mifoto.php?eventName=' + eventName + '&column=' + column + '&row=' + row);
-        xhr.send();
-    });
+        }
+    };
+    xhr.open('GET', 'mifoto.php?eventName=' + eventName + '&column=' + column + '&row=' + row);
+    xhr.send();
+});
+
+
 </script>
   <?php
             // Verificar si se han enviado los parámetros necesarios
@@ -224,6 +234,7 @@
 
                     // Definir el nombre del archivo de descarga
                     $downloadFileName = "mifoto_$eventName.jpg";
+                    
 
                     // Mostrar la imagen combinada
                     ob_start();

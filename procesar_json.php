@@ -1,8 +1,8 @@
 <?php
 if(isset($_POST['imageData']) && isset($_POST['eventName'])) {
-    // Decode the JSON data
+    // Decodificar el JSON data
     $imageData = json_decode($_POST['imageData'], true);
-    $eventName = $_POST['eventName']; // Get the event name
+    $eventName = $_POST['eventName']; // Obtener el nombre del evento
 
     // Prepare the data for the config.json
     $configData = [
@@ -10,25 +10,25 @@ if(isset($_POST['imageData']) && isset($_POST['eventName'])) {
         "columns" => $imageData['columns'],
         "rows" => $imageData['rows'],
         "totalSpaces" => $imageData['totalSpaces'],
-        "eventName" => $eventName, // Add the event name to the config data
+        "eventName" => $eventName, // Agregar el nombre del evento al config
         "processed" => false,
         "spaces" => []
     ];
 
-    // Generate the spaces array
+    // Generar el array de los espacios
     for ($i = 0; $i < $imageData['columns']; $i++) {
         for ($j = 0; $j < $imageData['rows']; $j++) {
             $configData['spaces'][] = [
-                "name" => "sbimg_" . $i . "_" . $j, // Concatenate properly
+                "name" => "sbimg_" . $i . "_" . $j, // Concatenar adecuadamente 
                 "foto" => false
             ];
         }
     }
 
-    // Convert the config data to JSON
+    // Convertir los datos del config a JSON
     $jsonConfig = json_encode($configData, JSON_PRETTY_PRINT);
 
-    // Get the directory path for the event
+    // Obtener el path del directorio del evento
     $eventDir = 'uploads/' . $eventName . '/';
 
     // Ensure the event directory exists
@@ -36,13 +36,18 @@ if(isset($_POST['imageData']) && isset($_POST['eventName'])) {
         mkdir($eventDir, 0777, true);
     }
 
-    // Write the JSON data to the config file
+    // Escrobir los datos en el JSON config 
     $configFile = $eventDir . 'config.json';
     file_put_contents($configFile, $jsonConfig);
 
     // Redirigir a la página visor.php
     $visorURL = "visor.php?image=" . urlencode($imageData['image']) . "&columns=" . urlencode($imageData['columns']) . "&rows=" . urlencode($imageData['rows']) . "&eventName=" . urlencode($eventName); // Incluimos el nombre del evento en la URL
     header("Location: $visorURL");
+
+    $visorURL = "foto.php?eventName=" . urlencode($eventName); // Incluimos el nombre del evento en la URL
+
+    echo "<script>window.open('$visorURL', '_blank');</script>";
+
     exit();
 } else {
     echo "No se han recibido todos los datos necesarios.";

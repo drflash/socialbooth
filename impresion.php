@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imprimir Fotos</title>
-    <link rel="stylesheet" href="/css/output.css">
+    <link rel="stylesheet" href="/mosa/css/output.css">
 </head>
 <body>
     <div id="image-container"></div>

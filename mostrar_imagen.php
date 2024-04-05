@@ -32,13 +32,13 @@
     </style>
 </head>
 <body>
-    <h2>Imagen con Retícula</h2>
     <?php
     if(isset($_GET['image']) && isset($_GET['columns']) && isset($_GET['rows']) && isset($_GET['eventName'])) {
         $image = $_GET['image'];
         $columns = $_GET['columns'];
         $rows = $_GET['rows'];
         $eventName = $_GET['eventName']; // Obtener el nombre del evento
+        $visorURL = "foto.php?eventName=" . urlencode($eventName); // Incluimos el nombre del evento en la URL
         echo "<img src='$image' alt='Preview' id='imagePreview'>";
         echo "<div>";
         echo "Columnas: $columns<br>";
@@ -57,7 +57,7 @@
                         totalSpaces: $columns * $rows,
                         processed: false
                     };
-
+                    window.open('$visorURL', '_blank');
                     // Crear un formulario para enviar los datos
                     var form = document.createElement('form');
                     form.method = 'post';
@@ -82,6 +82,7 @@
                     form.submit();
                 });
               </script>";
+
     } else {
         echo "No se han proporcionado todos los datos necesarios.";
     }
