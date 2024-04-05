@@ -1,0 +1,1258 @@
+{
+    "image": "uploads\/eclipse\/fondomosaico.jpg",
+    "columns": 24,
+    "rows": 13,
+    "totalSpaces": 312,
+    "eventName": "eclipse",
+    "processed": false,
+    "spaces": [
+        {
+            "name": "sbimg_0_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_1",
+            "foto": true
+        },
+        {
+            "name": "sbimg_0_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_0_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_1_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_1_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_1_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_1_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_1_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_1_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_1_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_1_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_1_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_1_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_1_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_1_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_1_12",
+            "foto": true
+        },
+        {
+            "name": "sbimg_2_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_2_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_2_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_2_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_2_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_2_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_2_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_2_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_2_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_2_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_2_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_2_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_2_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_3_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_3_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_3_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_3_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_3_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_3_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_3_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_3_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_3_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_3_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_3_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_3_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_3_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_4_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_4_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_4_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_4_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_4_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_4_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_4_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_4_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_4_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_4_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_4_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_4_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_4_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_5_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_5_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_5_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_5_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_5_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_5_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_5_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_5_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_5_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_5_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_5_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_5_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_5_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_6_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_6_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_6_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_6_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_6_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_6_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_6_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_6_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_6_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_6_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_6_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_6_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_6_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_7_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_7_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_7_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_7_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_7_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_7_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_7_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_7_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_7_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_7_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_7_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_7_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_7_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_8_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_8_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_8_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_8_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_8_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_8_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_8_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_8_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_8_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_8_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_8_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_8_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_8_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_9_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_9_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_9_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_9_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_9_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_9_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_9_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_9_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_9_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_9_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_9_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_9_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_9_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_10_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_10_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_10_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_10_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_10_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_10_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_10_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_10_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_10_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_10_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_10_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_10_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_10_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_11_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_11_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_11_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_11_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_11_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_11_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_11_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_11_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_11_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_11_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_11_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_11_11",
+            "foto": true
+        },
+        {
+            "name": "sbimg_11_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_12_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_12_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_12_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_12_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_12_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_12_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_12_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_12_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_12_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_12_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_12_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_12_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_12_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_13_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_13_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_13_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_13_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_13_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_13_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_13_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_13_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_13_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_13_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_13_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_13_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_13_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_14_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_14_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_14_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_14_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_14_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_14_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_14_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_14_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_14_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_14_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_14_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_14_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_14_12",
+            "foto": true
+        },
+        {
+            "name": "sbimg_15_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_15_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_15_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_15_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_15_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_15_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_15_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_15_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_15_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_15_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_15_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_15_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_15_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_16_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_16_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_16_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_16_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_16_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_16_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_16_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_16_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_16_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_16_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_16_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_16_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_16_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_17_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_17_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_17_2",
+            "foto": true
+        },
+        {
+            "name": "sbimg_17_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_17_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_17_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_17_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_17_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_17_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_17_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_17_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_17_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_17_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_18_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_18_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_18_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_18_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_18_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_18_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_18_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_18_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_18_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_18_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_18_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_18_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_18_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_19_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_19_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_19_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_19_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_19_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_19_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_19_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_19_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_19_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_19_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_19_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_19_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_19_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_20_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_20_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_20_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_20_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_20_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_20_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_20_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_20_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_20_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_20_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_20_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_20_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_20_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_21_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_21_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_21_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_21_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_21_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_21_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_21_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_21_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_21_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_21_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_21_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_21_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_21_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_22_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_22_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_22_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_22_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_22_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_22_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_22_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_22_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_22_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_22_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_22_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_22_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_22_12",
+            "foto": false
+        },
+        {
+            "name": "sbimg_23_0",
+            "foto": false
+        },
+        {
+            "name": "sbimg_23_1",
+            "foto": false
+        },
+        {
+            "name": "sbimg_23_2",
+            "foto": false
+        },
+        {
+            "name": "sbimg_23_3",
+            "foto": false
+        },
+        {
+            "name": "sbimg_23_4",
+            "foto": false
+        },
+        {
+            "name": "sbimg_23_5",
+            "foto": false
+        },
+        {
+            "name": "sbimg_23_6",
+            "foto": false
+        },
+        {
+            "name": "sbimg_23_7",
+            "foto": false
+        },
+        {
+            "name": "sbimg_23_8",
+            "foto": false
+        },
+        {
+            "name": "sbimg_23_9",
+            "foto": false
+        },
+        {
+            "name": "sbimg_23_10",
+            "foto": false
+        },
+        {
+            "name": "sbimg_23_11",
+            "foto": false
+        },
+        {
+            "name": "sbimg_23_12",
+            "foto": false
+        }
+    ]
+}
