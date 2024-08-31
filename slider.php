@@ -64,6 +64,14 @@
             margin: 4px 2px;
        }
 
+        #share-buttons-container {
+            margin-top: 20px;
+        }
+
+        #share-buttons-container button {
+            margin-right: 10px;
+        }
+
         #print-button-container {
             display: flex;
             align-items: center;
@@ -113,16 +121,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
+<div id="image-container">
+    <img id="current-image" src="">
+    <button id="prev-button" class="navigation-button"><</button>
+    <button id="next-button" class="navigation-button">></button>
+    <div id="share-buttons-container">
+        <?php
+        // Define the base URL for image sharing
+        $shareBaseUrl = 'https://socialbooth.com.mx/uploads/' . $eventName . '/output/';
+        
+        // Check if images are defined and not empty
+        if (isset($imageNames) && !empty($imageNames)) {
+            $images = array_keys($imageNames); // Get image names
+            $currentIndex = 0; // Set initial index
 
-    <div id="image-container">
-        <img id="current-image" src="">
-        <button id="prev-button" class="navigation-button"><</button>
-        <button id="next-button" class="navigation-button">></button>
-        <div id="print-button-container">
-            <button id="print-button">Imprimir</button>
-            <span id="print-status"></span>
-        </div>
+            // Define an array of social media platforms and their corresponding share URLs
+            $platforms = [
+                'Facebook' => 'https://www.facebook.com/sharer/sharer.php?u=',
+                'Twitter' => 'https://twitter.com/intent/tweet?url=',
+                
+            ];
+
+            // Loop through the platforms and generate share links
+            foreach ($platforms as $name => $urlPrefix) {
+                // Generate the share link URL by appending the current image URL to the platform's URL prefix
+                $shareUrl = $urlPrefix . urlencode($shareBaseUrl . $images[$currentIndex]);
+                
+                // Output the share link HTML for the platform
+                echo "<button><a href=\"$shareUrl\" target=\"_blank\">Compartir en $name</a></button>";
+            }
+        } else {
+            echo "<p>No images found.</p>";
+        }
+        ?>
     </div>
+</div>
+
+<div id="print-button-container">
+    <button id="print-button">Imprimir</button>
+    <span id="print-status"></span>
+</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

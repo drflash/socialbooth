@@ -183,8 +183,8 @@ $(document).ready(function() {
 	    {   src: 'images/polina.jpg',
 	        video: {
 	            src: [
-	                '/assetsweb/video/socialb.webm',
-	                '/assetsweb/video/socialb.mp4'
+	                'video/socialb.webm',
+	                'video/socialb.mp4'
 	            ],
 	            loop: true,
 	            timer: false,
