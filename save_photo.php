@@ -63,7 +63,7 @@ if (isset($_POST['photo'])) {
             $registros[] = $registro;
             file_put_contents($registroPath, json_encode($registros, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
-            // Ruta pública para el QR
+            // Ruta pública para el QR para qr 
             $publicPath = 'uploads/' . $eventName . '/output/' . $selectedSpaceName . '.jpg';
             echo $publicPath;
         } else {
