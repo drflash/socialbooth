@@ -80,7 +80,7 @@ $eventName = isset($_GET['eventName']) ? $_GET['eventName'] : '';
       const video = document.getElementById('video');
       const mensaje = document.getElementById('mensajeCamara');
 
-      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
         .then(stream => {
           video.srcObject = stream;
           mensaje.style.display = 'none';
