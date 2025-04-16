@@ -15,66 +15,66 @@
     </form>
 
     <?php
-    // Función para obtener una lista de imágenes de refill
-    function obtenerImagenesRefill($ruta_refill) {
-        return glob($ruta_refill . '*.{jpg,jpeg}', GLOB_BRACE);
-    }
-
-    // Verificar si se envió el formulario
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Obtener el nombre del evento desde el formulario
-        $eventName = $_POST['nombre_evento'];
-
-        // Construir la ruta al JSON
-        $json_path = 'uploads/' . $eventName . '/config.json';
-
-        // Cargar el JSON desde el archivo correspondiente
-        $json_content = file_get_contents($json_path);
-        if ($json_content === false) {
-            echo "<p>Error: No se pudo cargar el archivo JSON.</p>";
-        } else {
-            $config = json_decode($json_content, true);
-
-            // Verificar si el JSON se pudo decodificar correctamente
-            if ($config === null) {
-                echo "<p>Error: No se pudo decodificar el JSON.</p>";
-            } else {
-                // Contar las imágenes que tienen el valor de foto en false
-                $contador = 0;
-                foreach ($config['spaces'] as &$space) {
-                    if (!$space['foto']) {
-                        $contador++;
-                        // Generar la nueva imagen con el nombre faltante
-                        $nombre_foto = $space['name'] . '.jpg';
-                        $ruta_destino = 'uploads/' . $eventName . '/originales/' . $nombre_foto;
-                        // Verificar si el archivo ya existe en la carpeta de originales
-                        if (!file_exists($ruta_destino)) {
-                            // Obtener la lista de imágenes de refill
-                            $imagenes_refill = obtenerImagenesRefill('images/refill/');
-                            if (!empty($imagenes_refill)) {
-                                // Seleccionar aleatoriamente una imagen de refill
-                                $imagen_refill = $imagenes_refill[array_rand($imagenes_refill)];
-                                // Copiar la imagen de refill con el nombre correspondiente
-                                if (copy($imagen_refill, $ruta_destino)) {
-                                    // Actualizar el JSON
-                                    $space['foto'] = true;
-                                    // Guardar el JSON actualizado
-                                    file_put_contents($json_path, json_encode($config, JSON_PRETTY_PRINT));
-                                } else {
-                                    echo "<p>Error: No se pudo copiar la imagen.</p>";
-                                }
-                            } else {
-                                echo "<p>Error: No hay imágenes en la carpeta refill.</p>";
-                            }
-                        }
-                    }
-                }
-
-                // Mostrar el total de imágenes a generar
-                echo "<p>Total de imágenes a generar para el evento $eventName: $contador</p>";
+    // Función para obtener imágenes del evento que ya están ocupadas
+function obtenerFotosUsadas($config, $evento) {
+    $usadas = [];
+    foreach ($config['spaces'] as $space) {
+        if ($space['foto']) {
+            $archivo = 'uploads/' . $evento . '/originales/' . $space['name'] . '.jpg';
+            if (file_exists($archivo)) {
+                $usadas[] = $archivo;
             }
         }
     }
+    return $usadas;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $eventName = $_POST['nombre_evento'];
+    $json_path = 'uploads/' . $eventName . '/config.json';
+
+    $json_content = file_get_contents($json_path);
+    if ($json_content === false) {
+        echo "<p>Error: No se pudo cargar el archivo JSON.</p>";
+    } else {
+        $config = json_decode($json_content, true);
+
+        if ($config === null) {
+            echo "<p>Error: No se pudo decodificar el JSON.</p>";
+        } else {
+            $contador = 0;
+            $fotos_usadas = obtenerFotosUsadas($config, $eventName);
+
+            foreach ($config['spaces'] as &$space) {
+                if (!$space['foto']) {
+                    $contador++;
+                    $nombre_foto = $space['name'] . '.jpg';
+                    $ruta_destino = 'uploads/' . $eventName . '/originales/' . $nombre_foto;
+
+                    // Si el archivo no existe aún
+                    if (!file_exists($ruta_destino)) {
+                        if (!empty($fotos_usadas)) {
+                            // Selecciona aleatoriamente una ya usada
+                            $foto_fuente = $fotos_usadas[array_rand($fotos_usadas)];
+
+                            if (copy($foto_fuente, $ruta_destino)) {
+                                $space['foto'] = true;
+                                file_put_contents($json_path, json_encode($config, JSON_PRETTY_PRINT));
+                            } else {
+                                echo "<p>Error al copiar la imagen $foto_fuente.</p>";
+                            }
+                        } else {
+                            echo "<p>No hay imágenes disponibles del evento para copiar.</p>";
+                        }
+                    }
+                }
+            }
+
+            echo "<p>Se rellenaron $contador espacios para el evento '$eventName'.</p>";
+        }
+    }
+}
+
     ?>
 
 </body>
