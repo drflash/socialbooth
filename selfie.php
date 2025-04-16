@@ -51,9 +51,34 @@ $eventName = isset($_GET['eventName']) ? $_GET['eventName'] : '';
 
     #fotoFinal {
       margin-top: 20px;
-      max-width: 90%;
+      max-width: 90vw;
+      max-height: 90vw;
+      width: auto;
+      height: auto;
+      aspect-ratio: 1 / 1;
       border-radius: 10px;
       display: none;
+      object-fit: contain;
+    }
+
+    .boton-accion {
+      margin-top: 10px;
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      display: none;
+    }
+
+    #botonDescargar {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    #botonCompartir {
+      background-color: #25D366;
+      color: white;
     }
   </style>
 </head>
@@ -66,107 +91,116 @@ $eventName = isset($_GET['eventName']) ? $_GET['eventName'] : '';
   <canvas id="canvas" style="display: none;"></canvas>
   <img id="fotoFinal" src="" alt="Foto con marco" />
 
+  <a id="botonDescargar" class="boton-accion" download="selfie.jpg">Descargar selfie</a>
+  <a id="botonCompartir" class="boton-accion" target="_blank">Compartir por WhatsApp</a>
+
   <script>
-  const eventName = "<?= htmlspecialchars($eventName) ?>";
+    const eventName = "<?= htmlspecialchars($eventName) ?>";
 
-  function startCamera() {
-    const video = document.getElementById('video');
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
-      .then(stream => video.srcObject = stream)
-      .catch(err => console.error('Error al acceder a la cámara:', err));
-  }
-
-  // ✅ FUNCION GLOBAL
-  function verificarFotosTomadas() {
-    const configUrl = `${window.location.origin}${window.location.pathname.split('/').slice(0, -1).join('/')}/uploads/${eventName}/config.json`;
-
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', configUrl);
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        const config = JSON.parse(xhr.responseText);
-        const total = config.spaces.length;
-        const tomadas = config.spaces.filter(s => s.foto).length;
-        console.log(`📸 Selfies tomadas: ${tomadas} de ${total}`);
-
-        if (tomadas === total) {
-          alert("🎉 Todas las selfies han sido tomadas.");
-        }
-      } else {
-        console.warn('⚠️ No se encontró config.json. Revisa ruta:', configUrl);
-      }
-    };
-    xhr.send();
-  }
-
-  document.getElementById('captureButton').addEventListener('click', function () {
-    const video = document.getElementById('video');
-
-    if (!video.srcObject) {
-      startCamera();
-      return;
+    function startCamera() {
+      const video = document.getElementById('video');
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+        .then(stream => video.srcObject = stream)
+        .catch(err => console.error('Error al acceder a la cámara:', err));
     }
 
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    const width = video.videoWidth;
-    const height = video.videoHeight;
-    const size = Math.min(width, height);
-    canvas.width = size;
-    canvas.height = size;
-    ctx.drawImage(video, (width - size) / 2, (height - size) / 2, size, size, 0, 0, size, size);
-    const dataURL = canvas.toDataURL('image/jpeg');
+    function verificarFotosTomadas() {
+      const configUrl = `${window.location.origin}${window.location.pathname.split('/').slice(0, -1).join('/')}/uploads/${eventName}/config.json`;
 
-    const nombre = "Selfie / No aplica";
-    const whatsapp = "123456";
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', configUrl);
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          const config = JSON.parse(xhr.responseText);
+          const total = config.spaces.length;
+          const tomadas = config.spaces.filter(s => s.foto).length;
+          console.log(`📸 Selfies tomadas: ${tomadas} de ${total}`);
 
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'save_photo.php');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        const imagePath = xhr.responseText.trim();
-        const fullUrl = `${window.location.origin}${window.location.pathname.split('/').slice(0, -1).join('/')}/${imagePath}`;
-
-        if (eventName) {
-          const xhrPrint = new XMLHttpRequest();
-          xhrPrint.open('GET', 'procesar_impresion.php?eventName=' + encodeURIComponent(eventName), true);
-          xhrPrint.send();
+          if (tomadas === total) {
+            alert("🎉 Todas las selfies han sido tomadas.");
+          }
+        } else {
+          console.warn('⚠️ No se encontró config.json. Revisa ruta:', configUrl);
         }
+      };
+      xhr.send();
+    }
 
-        const processingMsg = document.createElement('p');
-        processingMsg.id = 'procesando';
-        processingMsg.textContent = 'Procesando selfie…';
-        processingMsg.style.fontSize = '20px';
-        processingMsg.style.color = '#555';
-        processingMsg.style.marginTop = '20px';
-        document.body.appendChild(processingMsg);
-
-        setTimeout(() => {
-          document.getElementById('fotoFinal').src = fullUrl;
-          document.getElementById('fotoFinal').style.display = 'block';
-          video.style.display = 'none';
-          document.getElementById('captureButton').style.display = 'none';
-          processingMsg.remove();
-
-          // ✅ Llamar verificación
-          verificarFotosTomadas();
-        }, 10000);
-      } else {
-        console.error('Error al guardar la foto.');
+    document.getElementById('captureButton').addEventListener('click', function () {
+      const video = document.getElementById('video');
+      if (!video.srcObject) {
+        startCamera();
+        return;
       }
-    };
 
-    xhr.send(
-      'photo=' + encodeURIComponent(dataURL) +
-      '&eventName=' + encodeURIComponent(eventName) +
-      '&nombre=' + encodeURIComponent(nombre) +
-      '&whatsapp=' + encodeURIComponent(whatsapp)
-    );
-  });
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      const width = video.videoWidth;
+      const height = video.videoHeight;
+      const size = Math.min(width, height);
+      canvas.width = size;
+      canvas.height = size;
+      ctx.drawImage(video, (width - size) / 2, (height - size) / 2, size, size, 0, 0, size, size);
+      const dataURL = canvas.toDataURL('image/jpeg');
 
-  startCamera();
-</script>
+      const nombre = "Selfie / No aplica";
+      const whatsapp = "123456";
 
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'save_photo.php');
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          const imagePath = xhr.responseText.trim();
+          const basePath = `${window.location.origin}${window.location.pathname.split('/').slice(0, -1).join('/')}`;
+          const fullUrl = `${basePath}/${imagePath}`;
+
+          if (eventName) {
+            const xhrPrint = new XMLHttpRequest();
+            xhrPrint.open('GET', 'procesar_impresion.php?eventName=' + encodeURIComponent(eventName), true);
+            xhrPrint.send();
+          }
+
+          const processingMsg = document.createElement('p');
+          processingMsg.id = 'procesando';
+          processingMsg.textContent = 'Procesando selfie…';
+          processingMsg.style.fontSize = '20px';
+          processingMsg.style.color = '#555';
+          processingMsg.style.marginTop = '20px';
+          document.body.appendChild(processingMsg);
+
+          setTimeout(() => {
+            document.getElementById('fotoFinal').src = fullUrl;
+            document.getElementById('fotoFinal').style.display = 'block';
+            video.style.display = 'none';
+            document.getElementById('captureButton').style.display = 'none';
+            processingMsg.remove();
+
+            // ✅ Mostrar botones de acción
+            const botonDescargar = document.getElementById('botonDescargar');
+            botonDescargar.href = fullUrl;
+            botonDescargar.style.display = 'inline-block';
+
+            const botonCompartir = document.getElementById('botonCompartir');
+            botonCompartir.href = `https://wa.me/?text=Mira%20mi%20selfie%20en%20el%20evento%20🎉%0A${encodeURIComponent(fullUrl)}`;
+            botonCompartir.style.display = 'inline-block';
+
+            verificarFotosTomadas();
+          }, 10000);
+        } else {
+          console.error('Error al guardar la foto.');
+        }
+      };
+
+      xhr.send(
+        'photo=' + encodeURIComponent(dataURL) +
+        '&eventName=' + encodeURIComponent(eventName) +
+        '&nombre=' + encodeURIComponent(nombre) +
+        '&whatsapp=' + encodeURIComponent(whatsapp)
+      );
+    });
+
+    startCamera();
+  </script>
 </body>
 </html>
