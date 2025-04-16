@@ -6,7 +6,7 @@ $eventName = isset($_GET['eventName']) ? $_GET['eventName'] : '';
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tomar Foto</title>
+  <title>Tomar Selfie</title>
   <style>
     @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
     body {
@@ -55,102 +55,118 @@ $eventName = isset($_GET['eventName']) ? $_GET['eventName'] : '';
       border-radius: 10px;
       display: none;
     }
-
-    #mensajeCamara {
-      color: gray;
-      text-align: center;
-      margin-top: 10px;
-    }
   </style>
 </head>
 <body>
 
   <img src="images/logosocial.png" alt="Logo" class="logo">
   <video id="video" autoplay muted playsinline></video>
-  <p id="mensajeCamara">Esperando permiso para usar la cámara...</p>
-  <button id="captureButton">Tomar Foto</button>
+  <button id="captureButton">Tomar Selfie</button>
 
   <canvas id="canvas" style="display: none;"></canvas>
-  <img id="fotoFinal" src="" alt="Foto final" />
+  <img id="fotoFinal" src="" alt="Foto con marco" />
 
   <script>
-    const eventName = "<?= htmlspecialchars($eventName) ?>";
+  const eventName = "<?= htmlspecialchars($eventName) ?>";
 
-    function startCamera() {
-      const video = document.getElementById('video');
-      const mensaje = document.getElementById('mensajeCamara');
+  function startCamera() {
+    const video = document.getElementById('video');
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+      .then(stream => video.srcObject = stream)
+      .catch(err => console.error('Error al acceder a la cámara:', err));
+  }
 
-      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
-        .then(stream => {
-          video.srcObject = stream;
-          mensaje.style.display = 'none';
-        })
-        .catch(err => {
-          console.error('Error al acceder a la cámara:', err);
-          mensaje.innerText = 'No se pudo acceder a la cámara. Asegúrate de dar permiso.';
-        });
+  // ✅ FUNCION GLOBAL
+  function verificarFotosTomadas() {
+    const configUrl = `${window.location.origin}${window.location.pathname.split('/').slice(0, -1).join('/')}/uploads/${eventName}/config.json`;
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', configUrl);
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        const config = JSON.parse(xhr.responseText);
+        const total = config.spaces.length;
+        const tomadas = config.spaces.filter(s => s.foto).length;
+        console.log(`📸 Selfies tomadas: ${tomadas} de ${total}`);
+
+        if (tomadas === total) {
+          alert("🎉 Todas las selfies han sido tomadas.");
+        }
+      } else {
+        console.warn('⚠️ No se encontró config.json. Revisa ruta:', configUrl);
+      }
+    };
+    xhr.send();
+  }
+
+  document.getElementById('captureButton').addEventListener('click', function () {
+    const video = document.getElementById('video');
+
+    if (!video.srcObject) {
+      startCamera();
+      return;
     }
 
-    document.getElementById('captureButton').addEventListener('click', function () {
-      const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const width = video.videoWidth;
+    const height = video.videoHeight;
+    const size = Math.min(width, height);
+    canvas.width = size;
+    canvas.height = size;
+    ctx.drawImage(video, (width - size) / 2, (height - size) / 2, size, size, 0, 0, size, size);
+    const dataURL = canvas.toDataURL('image/jpeg');
 
-      // Primer clic: activa la cámara
-      if (!video.srcObject) {
-        startCamera();
-        return;
-      }
+    const nombre = "Selfie / No aplica";
+    const whatsapp = "123456";
 
-      // Segundo clic: toma la foto
-      const canvas = document.getElementById('canvas');
-      const ctx = canvas.getContext('2d');
-      const width = video.videoWidth;
-      const height = video.videoHeight;
-      const size = Math.min(width, height);
-      canvas.width = size;
-      canvas.height = size;
-      ctx.drawImage(video, (width - size) / 2, (height - size) / 2, size, size, 0, 0, size, size);
-      const dataURL = canvas.toDataURL('image/jpeg');
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'save_photo.php');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        const imagePath = xhr.responseText.trim();
+        const fullUrl = `${window.location.origin}${window.location.pathname.split('/').slice(0, -1).join('/')}/${imagePath}`;
 
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', 'save_photo.php');
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          const imagePath = xhr.responseText.trim();
-          const fullUrl = '/' + imagePath;
+        if (eventName) {
+          const xhrPrint = new XMLHttpRequest();
+          xhrPrint.open('GET', 'procesar_impresion.php?eventName=' + encodeURIComponent(eventName), true);
+          xhrPrint.send();
+        }
 
+        const processingMsg = document.createElement('p');
+        processingMsg.id = 'procesando';
+        processingMsg.textContent = 'Procesando selfie…';
+        processingMsg.style.fontSize = '20px';
+        processingMsg.style.color = '#555';
+        processingMsg.style.marginTop = '20px';
+        document.body.appendChild(processingMsg);
+
+        setTimeout(() => {
           document.getElementById('fotoFinal').src = fullUrl;
           document.getElementById('fotoFinal').style.display = 'block';
           video.style.display = 'none';
           document.getElementById('captureButton').style.display = 'none';
+          processingMsg.remove();
 
+          // ✅ Llamar verificación
           verificarFotosTomadas();
-        } else {
-          console.error('Error al guardar la foto.');
-        }
-      };
-      xhr.send(
-        'photo=' + encodeURIComponent(dataURL) +
-        '&eventName=' + encodeURIComponent(eventName) +
-        '&nombre=' +
-        '&whatsapp='
-      );
-    });
+        }, 10000);
+      } else {
+        console.error('Error al guardar la foto.');
+      }
+    };
 
-    function verificarFotosTomadas() {
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', `/mosa/uploads/${eventName}/config.json`);
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          const config = JSON.parse(xhr.responseText);
-          const todas = config.spaces.every(s => s.foto);
-          if (todas) window.location.href = 'gracias.html';
-        } else {
-          console.error('Error al cargar config.json');
-        }
-      };
-      xhr.send();
-    }
-  </script>
+    xhr.send(
+      'photo=' + encodeURIComponent(dataURL) +
+      '&eventName=' + encodeURIComponent(eventName) +
+      '&nombre=' + encodeURIComponent(nombre) +
+      '&whatsapp=' + encodeURIComponent(whatsapp)
+    );
+  });
+
+  startCamera();
+</script>
+
 </body>
 </html>
