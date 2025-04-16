@@ -127,19 +127,22 @@ $eventName = isset($_GET['eventName']) ? $_GET['eventName'] : '';
     }
 
     function verificarFotosTomadas() {
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', `/mosa/uploads/${eventName}/config.json`);
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          const config = JSON.parse(xhr.responseText);
-          const todas = config.spaces.every(s => s.foto);
-          if (todas) window.location.href = 'gracias.html';
-        } else {
-          console.error('Error al cargar config.json');
-        }
-      };
-      xhr.send();
+  const configUrl = `${window.location.origin}${window.location.pathname.split('/').slice(0, -1).join('/')}/uploads/${eventName}/config.json`;
+
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', configUrl);
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      const config = JSON.parse(xhr.responseText);
+      const todas = config.spaces.every(s => s.foto);
+      if (todas) window.location.href = 'gracias.html';
+    } else {
+      console.warn('⚠️ No se encontró config.json. Revisa ruta:', configUrl);
     }
+  };
+  xhr.send();
+}
+
 
     startCamera();
   </script>
