@@ -1,4 +1,8 @@
+
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 // Directorio de uploads
 $uploadsDir = "uploads/";
 
@@ -57,6 +61,15 @@ function processImage($imageName, $overlayImage, $outputPath) {
     $image = imagecreatefromjpeg($imageName);
     $overlay = imagecreatefrompng($overlayImage);
 
+    if (!$image) {
+        echo "❌ Error al cargar imagen original: $imageName<br>";
+        return;
+    }
+    if (!$overlay) {
+        echo "❌ Error al cargar frame PNG: $overlayImage<br>";
+        return;
+    }
+
     // Obtener dimensiones
     $imageWidth = imagesx($image);
     $imageHeight = imagesy($image);
@@ -70,9 +83,19 @@ function processImage($imageName, $overlayImage, $outputPath) {
     // Superponer imágenes
     imagecopy($overlay, $image, $x, $y, 0, 0, $imageWidth, $imageHeight);
 
+    echo "✅ Generando: $outputPath<br>";
+
+
     // Guardar imagen superpuesta
     imagejpeg($overlay, $outputPath, 100); // Calidad 100 (mejor calidad)
 
+
+    if (!file_exists($outputPath)) {
+        echo "❌ No se guardó correctamente la imagen final<br>";
+    } else {
+        echo "✅ Imagen generada correctamente<br>";
+    }
+    
     // Liberar memoria
     imagedestroy($image);
     imagedestroy($overlay);
