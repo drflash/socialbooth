@@ -61,24 +61,23 @@ $eventName = isset($_GET['eventName']) ? $_GET['eventName'] : '';
       object-fit: contain;
     }
 
-    .boton-accion {
-      margin-top: 10px;
-      padding: 12px 24px;
-      font-size: 18px;
-      border: none;
-      border-radius: 6px;
-      text-decoration: none;
+    #procesando {
+      font-size: 20px;
+      color: #555;
+      margin-top: 20px;
       display: none;
     }
 
     #botonDescargar {
+      margin-top: 10px;
+      padding: 12px 24px;
+      font-size: 18px;
       background-color: #2196F3;
       color: white;
-    }
-
-    #botonCompartir {
-      background-color: #25D366;
-      color: white;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      display: none;
     }
   </style>
 </head>
@@ -89,10 +88,9 @@ $eventName = isset($_GET['eventName']) ? $_GET['eventName'] : '';
   <button id="captureButton">Tomar Selfie</button>
 
   <canvas id="canvas" style="display: none;"></canvas>
+  <p id="procesando">Procesando selfie…</p>
   <img id="fotoFinal" src="" alt="Foto con marco" />
-
-  <a id="botonDescargar" class="boton-accion" download="selfie.jpg">Descargar selfie</a>
-  <a id="botonCompartir" class="boton-accion" target="_blank">Compartir por WhatsApp</a>
+  <a id="botonDescargar" download="selfie.jpg">Descargar selfie</a>
 
   <script>
     const eventName = "<?= htmlspecialchars($eventName) ?>";
@@ -128,10 +126,18 @@ $eventName = isset($_GET['eventName']) ? $_GET['eventName'] : '';
 
     document.getElementById('captureButton').addEventListener('click', function () {
       const video = document.getElementById('video');
+      const captureButton = document.getElementById('captureButton');
+      const processingMsg = document.getElementById('procesando');
+
       if (!video.srcObject) {
         startCamera();
         return;
       }
+
+      // Ocultar cámara y botón
+      video.style.display = 'none';
+      captureButton.style.display = 'none';
+      processingMsg.style.display = 'block';
 
       const canvas = document.getElementById('canvas');
       const ctx = canvas.getContext('2d');
@@ -161,29 +167,15 @@ $eventName = isset($_GET['eventName']) ? $_GET['eventName'] : '';
             xhrPrint.send();
           }
 
-          const processingMsg = document.createElement('p');
-          processingMsg.id = 'procesando';
-          processingMsg.textContent = 'Procesando selfie…';
-          processingMsg.style.fontSize = '20px';
-          processingMsg.style.color = '#555';
-          processingMsg.style.marginTop = '20px';
-          document.body.appendChild(processingMsg);
-
+          // Esperar 10 segundos y mostrar resultado
           setTimeout(() => {
             document.getElementById('fotoFinal').src = fullUrl;
             document.getElementById('fotoFinal').style.display = 'block';
-            video.style.display = 'none';
-            document.getElementById('captureButton').style.display = 'none';
-            processingMsg.remove();
+            processingMsg.style.display = 'none';
 
-            // ✅ Mostrar botones de acción
             const botonDescargar = document.getElementById('botonDescargar');
             botonDescargar.href = fullUrl;
             botonDescargar.style.display = 'inline-block';
-
-            const botonCompartir = document.getElementById('botonCompartir');
-            botonCompartir.href = `https://wa.me/?text=Mira%20mi%20selfie%20en%20el%20evento%20🎉%0A${encodeURIComponent(fullUrl)}`;
-            botonCompartir.style.display = 'inline-block';
 
             verificarFotosTomadas();
           }, 10000);
