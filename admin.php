@@ -31,6 +31,8 @@ function admin_icon($name)
         'slider' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="11" cy="17" r="2"/></svg>',
         'registros' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8l3 3v13H5V4h3Z"/><path d="M9 10h6M9 14h6M9 18h4"/></svg>',
         'captura' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h4l2-2h4l2 2h4v10H4V8Z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+        'fotos' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h5l2-2h2l2 2h5v10H4V7Z"/><circle cx="12" cy="12" r="3.5"/><path d="M7 17l3.5-3.5 2.5 2.5 4-4L20 15"/></svg>',
+        'zip' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10"/><path d="M8.5 9.5 12 13l3.5-3.5"/><path d="M5 15v4h14v-4"/></svg>',
         'rellenar' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4z"/><path d="M16.5 13v7M13 16.5h7"/></svg>',
         'eliminar' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M8 10v8M12 10v8M16 10v8"/><path d="M6 7l1 13h10l1-13"/></svg>',
     ];
@@ -407,6 +409,8 @@ function admin_load_events()
             'slider_url' => 'slider.php?eventName=' . urlencode($eventName),
             'registro_url' => $registroUrl,
             'capture_url' => 'foto.php?eventName=' . urlencode($eventName),
+            'manage_url' => 'admin_event.php?eventName=' . urlencode($eventName),
+            'download_url' => 'download_event_zip.php?eventName=' . urlencode($eventName),
         ];
     }
 
@@ -1066,6 +1070,8 @@ try {
                                     <a class="action-button" href="<?= admin_escape($event['registro_url']) ?>" target="_blank"><?= admin_icon('registros') ?><span>Registros</span></a>
                                 <?php endif; ?>
                                 <a class="action-button" href="<?= admin_escape($event['capture_url']) ?>" target="_blank"><?= admin_icon('captura') ?><span>Captura</span></a>
+                                <a class="action-button" href="<?= admin_escape($event['manage_url']) ?>"><?= admin_icon('fotos') ?><span>Fotos</span></a>
+                                <a class="action-button" href="<?= admin_escape($event['download_url']) ?>"><?= admin_icon('zip') ?><span>ZIP</span></a>
                                 <button
                                     type="button"
                                     class="action-button"
